@@ -1,1 +1,1 @@
-# recently-viewed-procutcs
+# recently-viewed-products
