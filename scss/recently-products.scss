@@ -1,0 +1,22 @@
+.recently-viewed-products {
+
+}
+.recently-viewed-list {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+.recently-viewed {
+
+
+	&__url {
+		text-decoration: none;
+	}
+	&__thumb {}
+	&__name {
+
+	}
+	&__price {
+
+	}
+}
