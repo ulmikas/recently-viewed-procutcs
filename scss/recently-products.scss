@@ -4,10 +4,11 @@
 .recently-viewed-list {
 	display: flex;
 	flex-direction: row;
+	flex-wrap: wrap;
 	justify-content: space-between;
 }
 .recently-viewed {
-
+	flex-shrink: .5;
 
 	&__url {
 		text-decoration: none;

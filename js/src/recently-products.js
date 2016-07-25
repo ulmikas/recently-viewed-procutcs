@@ -369,15 +369,24 @@
 
 Ecwid.OnPageLoad.add(function(page) {
 	/* constants */
-	/* TODO */	
+	/* TODO заменить на public_token */
 	const token = 'secret_VP5zXwrzPa8niU5mcm1whdZFLbCq6ZEV'
+	const apiProductUrl = 'https://app.ecwid.com/api/v3'
+	const app_id="testapp-hackathon2016-3"
+	const appSettings = JSON.parse(Ecwid.getAppPublicConfig(app_id))
 
-	const contains = (item, arr) => {
-		return arr.length && arr.filter((i)=> {
-				return i === item
-			}).length > 0
-	}
+	/* check if array contains item 
+	const removeExist = (item, arr) => {
+		return arr.filter((i)=> {
+				return i !== item
+			})
+	}*/
 
+	const getMaxShown = () => appSettings.maxShown || 3
+	
+	const getContainer = () => document.querySelector(appSettings.container)
+	
+	/* main render */
 	const render = (viewed, container) => {
 		const viewedHtml = document.createElement('div');
 		viewedHtml.className = "recently-viewed-list"
@@ -389,41 +398,39 @@ Ecwid.OnPageLoad.add(function(page) {
 		container.appendChild(viewedHtml)
 	}
 
+	/* render item */
 	const renderItem = (productId, obj) => {
-		fetch(`https://app.ecwid.com/api/v3/${Ecwid.getOwnerId()}/products/${productId}?token=${token}`)
+		fetch(`${apiProductUrl}/${Ecwid.getOwnerId()}/products/${productId}?token=${token}`)
 			.then(function (response) {
 				return response.json()
 			}).then(function (json) {
 				const pItem = obj.querySelector('.recently-viewed--'+productId)
-				pItem.innerHTML = `
-				<a class="recently-viewed__url" href="${json.url}">
-					<div class="recently-viewed__thumb">
-						<img src="${json.thumbnailUrl}" alt="">
-					</div>
-					<div class="recently-viewed__name">${json.name}</div>
-					<div class="recently-viewed__price">${json.price}</div>
-				</a>`
+				pItem.innerHTML = `<a class="recently-viewed__url" href="${json.url}"><div class="recently-viewed__thumb"><img src="${json.thumbnailUrl}" alt=""></div><div class="recently-viewed__name">${json.name}</div><div class="recently-viewed__price">${json.price}</div></a>`
 		}).catch(function (ex) {
 			console.warn('parsing failed', ex)
 		})
 	}
-	const getMaxShown = () => 3
+
 
 	const addRecentProduct = (id, viewed) => {
-		if ( !contains(id, viewed) ) {
-			viewed.push(id)
+		let newViewed = viewed.filter((i)=> {
+			return i !== id
+		})
+		newViewed.unshift(id)
+		if ( newViewed.length > getMaxShown() ) {
+			newViewed.pop()
 		}
-		if ( viewed.length > getMaxShown() ) {
-			viewed.shift()
-		}
+		return newViewed
 	}
 
-	const navigation = document.querySelector('.navigation')
+	console.log (getMaxShown() , getContainer()  )
+
+	const productBrowser = getContainer()
 	let recentlyViewed = document.querySelector('.recently-viewed-products')
 	if (!recentlyViewed) {
 		recentlyViewed = document.createElement('div')
 		recentlyViewed.className = "recently-viewed-products"
-		navigation.parentNode.insertBefore(recentlyViewed, navigation)
+		productBrowser.parentNode.insertBefore(recentlyViewed, productBrowser)
 	}
 
 	if (!store.enabled) {
@@ -431,11 +438,11 @@ Ecwid.OnPageLoad.add(function(page) {
 		return
 	}
 
-	const viewed = store.get('viewed') || []
+	let viewed = store.get('viewed') || []
 
 	if ( page.type === 'PRODUCT') {
 		let pId = page.productId
-		addRecentProduct(pId, viewed)
+		viewed = addRecentProduct(pId, viewed)
 
 		store.set('viewed', viewed)
 		render(viewed, recentlyViewed)
