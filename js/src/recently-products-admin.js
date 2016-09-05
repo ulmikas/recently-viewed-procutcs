@@ -9,12 +9,12 @@
 	const storeId = storeData.store_id;
 	const token = storeData.access_token;
 
-	const maxLimit = 5
-	const defaultContainer = '.ecwid-productBrowser'
+	const maxLimit = 5;
+	const defaultContainer = '.ecwid-productBrowser';
 
-	const rvpForm = document.forms['rvp-settings']
-	const rvpMaximum = rvpForm.maximum
-	const rvpContainer = rvpForm.container
+	const rvpForm = document.forms['rvp-settings'];
+	const rvpMaximum = rvpForm.maximum;
+	const rvpContainer = rvpForm.container;
 
 	// let rvpSettings = {
 	// 	maxShown: maxLimit,
@@ -84,4 +84,7 @@
 	// EcwidApp.setAppPublicConfig(JSON.stringify(rvpSettings), ()=>{
 	// 	console.log('Public config saved!');
 	// })
-})()
+
+	const a = 2;
+
+})();
