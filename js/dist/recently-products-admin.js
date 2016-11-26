@@ -1,18 +1,23 @@
-(() => {
+'use strict';
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+(function () {
   EcwidApp.init({
     app_id: 'testapp-hackathon2016-3',
     autoloadedflag: true,
-    autoheight: true,
+    autoheight: true
   });
 
-  class Settings {
-    constructor(limit, place) {
-      this.maxItems = 5;
-      this.maxShown = limit || this.maxItems;
-      this.place = place || 'above';
-      this.container = '.ecwid-productBrowser';
-    }
-  }
+  var Settings = function Settings(limit, place) {
+    _classCallCheck(this, Settings);
+
+    this.maxItems = 5;
+    this.maxShown = limit || this.maxItems;
+    this.place = place || 'above';
+    this.container = '.ecwid-productBrowser';
+  };
+
   var labels = {
     en: {
       'rvp-title': 'Recently Viewed Products',
@@ -36,7 +41,7 @@
     }
   };
 
-  const setLabels = (lbls) => {
+  var setLabels = function setLabels(lbls) {
     document.querySelector('#rvp-title').innerText = lbls['rvp-title'];
     document.querySelector('#rvp-legend').innerText = lbls['rvp-legend'];
     document.querySelector('#rvp-max-shown').innerText = lbls['rvp-max-shown'];
@@ -46,39 +51,39 @@
     document.querySelector('#rvp-place-select').options[1].innerText = lbls['rvp-under'];
   };
 
-  const rvpForm = document.forms['rvp-settings'];
+  var rvpForm = document.forms['rvp-settings'];
 
-  EcwidApp.getAppStorage('public', (value) => {
-    const param = JSON.parse(value);
-    const rvpSettings = new Settings(param.maxShown, param.place);
+  EcwidApp.getAppStorage('public', function (value) {
+    var param = JSON.parse(value);
+    var rvpSettings = new Settings(param.maxShown, param.place);
 
     rvpForm.maximum.value = rvpSettings.maxShown;
     rvpForm.querySelector('#rvp-place-select').value = rvpSettings.place;
 
-    rvpForm.maximum.addEventListener('change', (e) => {
-      const val = parseInt(e.target.value, 10);
-      rvpForm.maximum.value = (val > 0 && val < 5) ? val : rvpSettings.maxItems;
+    rvpForm.maximum.addEventListener('change', function (e) {
+      var val = parseInt(e.target.value, 10);
+      rvpForm.maximum.value = val > 0 && val < 5 ? val : rvpSettings.maxItems;
     });
   });
 
-  const lang = (EcwidApp.getPayload().lang === 'ru') ? 'ru' : 'en';
+  var lang = EcwidApp.getPayload().lang === 'ru' ? 'ru' : 'en';
   setLabels(labels[lang]);
 
-  rvpForm.addEventListener('submit', (e) => {
+  rvpForm.addEventListener('submit', function (e) {
     e.preventDefault();
-    const newSettings = {
+    var newSettings = {
       maxShown: e.target.maximum.value,
-      place: e.target.querySelector('#rvp-place-select').value,
+      place: e.target.querySelector('#rvp-place-select').value
     };
-    EcwidApp.setAppPublicConfig(JSON.stringify(newSettings), () => {
-      let alertMsg = document.querySelector('#rvp-settings .rvp-settings-saved-alert');
+    EcwidApp.setAppPublicConfig(JSON.stringify(newSettings), function () {
+      var alertMsg = document.querySelector('#rvp-settings .rvp-settings-saved-alert');
       if (!alertMsg) {
         alertMsg = document.createElement('div');
         alertMsg.className = 'rvp-settings-saved-alert';
         alertMsg.innerHTML = '<br/><div>' + labels[lang]['rvp-saved'] + '</div>';
         document.querySelector('#rvp-settings').appendChild(alertMsg);
       }
-      setTimeout(() => {
+      setTimeout(function () {
         alertMsg.remove();
       }, 5000);
     });

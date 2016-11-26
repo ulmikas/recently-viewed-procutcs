@@ -22,7 +22,7 @@ class Product extends Component {
           name: data.name,
           url: window.location.origin + window.location.pathname + '#' + data.url.split('#')[1],
           img: data.thumbnailUrl,
-          price: data.price,
+          price: Ecwid.formatCurrency(data.price),
         });
       });
   }

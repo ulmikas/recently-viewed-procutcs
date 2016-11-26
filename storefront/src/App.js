@@ -23,12 +23,13 @@ class App extends Component {
     const newViewed = this.state.rvp.filter(i => i !== product);
     newViewed.unshift(product);
     this.setState({ rvp: newViewed.slice(0, this.props.maximum) });
-    localStorage.setItem('viewed', JSON.stringify(this.state.rvp));
+    sessionStorage.setItem('viewed', JSON.stringify(this.state.rvp));
   }
 
   render() {
     return (
       <div id="rvp-products-wrapper">
+        <div className="recently-viewed-title">{ this.props.settings.lang === 'ru' ? 'Недавно просмотренные товары' : 'Recently Viewed Products' }</div>
         <div id="recently-viewed-list">
           {this.state.rvp.slice(1).map(item =>
             <Product
