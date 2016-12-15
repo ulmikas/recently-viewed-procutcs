@@ -1,6 +1,6 @@
 (() => {
   EcwidApp.init({
-    app_id: 'testapp-hackathon2016-3',
+    app_id: 'recently-viewed-products',
     autoloadedflag: true,
     autoheight: true,
   });
@@ -18,11 +18,11 @@
       'rvp-title': 'Recently Viewed Products',
       'rvp-legend': 'Settings',
       'rvp-max-shown': 'Max products shown (< 6)',
-      'rvp-place': 'Place for Reacently Viewed',
+      'rvp-place': 'Place for Recently Viewed',
       'rvp-save': 'Save',
-      'rvp-above': 'Above Product Browser',
-      'rvp-under': 'Under Product Browser',
-      'rvp-saved': 'Settings was successfully saved!'
+      'rvp-above': 'Above Storefront',
+      'rvp-under': 'Under Storefront',
+      'rvp-saved': 'Settings were successfully saved!'
     },
     ru: {
       'rvp-title': 'Недавно просмотренные товары',

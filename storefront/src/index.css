@@ -1,3 +1,6 @@
+#rvp-products #rvp-products-wrapper.rvp-wrapper--empty {
+	display: none;
+}
 #rvp-products #rvp-products-wrapper .recently-viewed-title {
 	font-size: 14px;
 	font-weight: 600;

@@ -6,12 +6,12 @@ import './index.css';
 const Ecwid = window.Ecwid;
 Ecwid.OnAPILoaded.add((page) => {
   const apiSettings = {
-    token: Ecwid.getAppPublicToken('testapp-hackathon2016-3'),
+    token: Ecwid.getAppPublicToken('recently-viewed-products'),
     storeId: Ecwid.getOwnerId(),
     lang: Ecwid.getStorefrontLang()
   };
-  const appId = 'testapp-hackathon2016-3';
-  const appSettings = JSON.parse(Ecwid.getAppPublicConfig(appId));
+  const appId = 'recently-viewed-products';
+  const appSettings = JSON.parse(Ecwid.getAppPublicConfig(appId)) || { maxShown: 5, place: 'above' };
   const maxProducts = parseInt(appSettings.maxShown, 10);
   const rvp = sessionStorage.getItem('viewed') && JSON.parse(sessionStorage.getItem('viewed')).slice(0, maxProducts + 1) || [];
 
