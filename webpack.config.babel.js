@@ -19,7 +19,7 @@ module.exports = {
 	output: {
 		path: path.resolve(__dirname, "build"),
 		publicPath: '/',
-		filename: 'bundle.js'
+		filename: 'recently-products.js'
 	},
 
 	resolve: {
@@ -86,12 +86,12 @@ module.exports = {
 	},
 
 	postcss: () => [
-		autoprefixer({ browsers: 'last 2 versions' })
+		autoprefixer()
 	],
 
 	plugins: ([
 		new webpack.NoErrorsPlugin(),
-		new ExtractTextPlugin('style.css', {
+		new ExtractTextPlugin('recently-products.css', {
 			allChunks: true,
 			disable: ENV!=='production'
 		}),
@@ -136,14 +136,14 @@ module.exports = {
 			replacement: () => 'return;('
 		}]),
 
-		new OfflinePlugin({
-			relativePaths: false,
-			AppCache: false,
-			ServiceWorker: {
-				events: true
-			},
-			publicPath: '/'
-		})
+		// new OfflinePlugin({
+		// 	relativePaths: false,
+		// 	AppCache: false,
+		// 	ServiceWorker: {
+		// 		events: true
+		// 	},
+		// 	publicPath: '/'
+		// })
 	] : []),
 
 	stats: { colors: true },
