@@ -1,12 +1,17 @@
-## recently-viewed-products
+# recently-viewed-products
 
-js/src/recently-products-admin.js - здесь обработка формы настроек в админке
-js/dist - файлы сборки для админки и сторфронта
+## исходники
+src/recently-products-admin.js - здесь обработка формы настроек в админке
+src/recently-products.js - сторфронт
+src/styles/index.css - css для сторфронта
+index.html - iframe для админки
 
-storefront/ - все что относится к части сторфронта
-за основу взял Create React App https://github.com/facebookincubator/create-react-app
+## build
+build/recently-products-admin.js
+build/recently-products.js
 
-в нем переопредел пути чтобы собирало в нужное мне место
-нужно файл storefront/node_modules/react-scripts/config/webpack.config.prod.js
-заменить тем что лежит в корне storefront
+## init
+для установки окружения выпонить `npm install`
 
+## build
+для сборки выпонить `npm run build`
