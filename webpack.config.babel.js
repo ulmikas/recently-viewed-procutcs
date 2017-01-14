@@ -14,12 +14,15 @@ const CSS_MAPS = ENV!=='production';
 
 module.exports = {
 	context: path.resolve(__dirname, "src"),
-	entry: './index.js',
+	entry: {
+		'recently-products': './recently-products.js',
+		'recently-products-admin': './recently-products-admin.js'
+	},
 
 	output: {
 		path: path.resolve(__dirname, "build"),
 		publicPath: '/',
-		filename: 'recently-products.js'
+		filename: "[name].js"
 	},
 
 	resolve: {

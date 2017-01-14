@@ -13,7 +13,7 @@
       this.container = '.ecwid-productBrowser';
     }
   }
-  var labels = {
+  const labels = {
     en: {
       'rvp-title': 'Recently Viewed Products',
       'rvp-legend': 'Settings',
