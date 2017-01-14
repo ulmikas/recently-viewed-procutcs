@@ -20,7 +20,8 @@ class Product extends Component {
       .then(({ data }) => {
         self.setState({
           name: data.name,
-          url: window.location.origin + window.location.pathname + '#' + data.url.split('#')[1],
+          url: "!/p/" + data.id,
+          dataurl: "!/p/" + data.id,
           img: data.thumbnailUrl,
           price: Ecwid.formatCurrency(data.price),
         });
@@ -31,7 +32,7 @@ class Product extends Component {
     const cln = `recently-viewed recently-viewed--${this.props.id}`;
     return (
       <div className={cln}>
-        <a className="recently-viewed__url" href={this.state.url}>
+        <a className="recently-viewed__url" data-url={this.state.dataurl} href={this.state.url} onClick={this.onClick}>
           <div className="recently-viewed__thumb">
             <img alt="" src={this.state.img} />
           </div>
@@ -42,6 +43,16 @@ class Product extends Component {
         </a>
       </div>
     );
+  }
+
+  onClick(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (typeof Wix === 'undefined') {
+      window.location = window.location.origin + "/#" + e.currentTarget.dataset.url;
+    } else {
+      Wix.pushState(e.currentTarget.dataset.url);
+    }
   }
 }
 

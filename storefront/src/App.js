@@ -27,9 +27,15 @@ class App extends Component {
   }
 
   render() {
+    let title = 'Recently Viewed Products';
+    if (this.props.settings.lang === 'ru') {
+      title = 'Недавно просмотренные товары';
+    } else if (this.props.settings.lang === 'sv') {
+      title = 'Nyligen visade produkter';
+    }
     return (
       <div id="rvp-products-wrapper" className={(this.state.rvp.slice(1).length) ? 'rvp-wrapper' : 'rvp-wrapper--empty'}>
-        <div className="recently-viewed-title">{ this.props.settings.lang === 'ru' ? 'Недавно просмотренные товары' : 'Recently Viewed Products' }</div>
+        <div className="recently-viewed-title">{title}</div>
         <div id="recently-viewed-list">
           {this.state.rvp.slice(1).map(item =>
             <Product

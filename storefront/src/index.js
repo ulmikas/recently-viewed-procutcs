@@ -11,21 +11,22 @@ Ecwid.OnAPILoaded.add((page) => {
     lang: Ecwid.getStorefrontLang()
   };
   const appId = 'recently-viewed-products';
-  const appSettings = JSON.parse(Ecwid.getAppPublicConfig(appId)) || { maxShown: 5, place: 'above' };
+  const appSettings = (Ecwid.getAppPublicConfig(appId) === '') ? { maxShown: 5, place: 'above' } : JSON.parse(Ecwid.getAppPublicConfig(appId));
   const maxProducts = parseInt(appSettings.maxShown, 10);
+  const appPlace = appSettings.place || 'above';
   const rvp = sessionStorage.getItem('viewed') && JSON.parse(sessionStorage.getItem('viewed')).slice(0, maxProducts + 1) || [];
 
-  const rvpWrapper = document.querySelector('[id*=ProductBrowser]');
+  const rvpWrapper = document.querySelector('.ecwid-productBrowser');
   let rvpContainer = document.querySelector('#rvp-products');
   if (!rvpContainer) {
     rvpContainer = document.createElement('div');
     rvpContainer.id = 'rvp-products';
-    rvpContainer.className = 'rvp-products--' + appSettings.place;
+    rvpContainer.className = 'rvp-products--' + appPlace;
   } else {
     rvpContainer.parentElement.remove(rvpContainer);
   }
 
-  if (appSettings.place === 'above') {
+  if (appPlace === 'above') {
     rvpWrapper.insertBefore(rvpContainer, rvpWrapper.childNodes[0]);
   } else {
     rvpWrapper.appendChild(rvpContainer);
