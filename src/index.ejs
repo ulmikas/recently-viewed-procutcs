@@ -1,28 +1,87 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<% for (var chunk in htmlWebpackPlugin.files.css) { %>
-		<link rel="preload" href="<%= htmlWebpackPlugin.files.css[chunk] %>"  as="style">
-	<% } %>
-	<% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
-		<link rel="preload" href="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>" as="script">
-	<% } %>
-	<meta charset="utf-8">
-	<title>preact-boilerplate</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-	<meta name="description" content="preact-boilerplate">
-	<meta name="msapplication-TileColor" content="#673ab8">
-	<meta name="msapplication-TileImage" content="./assets/icons/mstile-150x150.png">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-	<meta name="apple-mobile-web-app-title" content="preact-boilerplate">
-	<meta name="application-name" content="preact-boilerplate">
-	<meta name="format-detection" content="telephone=no">
-	<meta name="theme-color" content="#673ab8">
-	<link rel="apple-touch-icon" sizes="180x180" href="./assets/icons/apple-touch-icon.png">
-	<link rel="icon" type="image/png" href="./assets/icons/favicon-32x32.png" sizes="32x32">
-	<link rel="icon" type="image/png" href="/assets/icons/favicon-16x16.png" sizes="16x16">
-	<link rel="manifest" href="./manifest.json">
+	<head>
+    <meta charset="UTF-8">
+    <title>Recently Viewed Products</title>
+    <link rel="stylesheet" href="https://djqizrxa6f10j.cloudfront.net/ecwid-sdk/css/1.2.0/ecwid-app-ui.css" />
+    <script src="https://djqizrxa6f10j.cloudfront.net/ecwid-sdk/js/1.1.0/gz/ecwid-app.js"></script>
+    <style>
+    #rvp-settings div {
+        margin-bottom: 16px;
+    }
+    
+    #rvp-settings label {
+        display: block;
+        font-weight: 600;
+        margin-right: 16px;
+        margin-bottom: 8px;
+        vertical-align: middle;
+        width: 100%;
+    }
+    
+    #rvp-settings .form-control {
+        display: block;
+        vertical-align: middle;
+        width: 100%;
+    }
+    
+    .rvp-settings-container {
+        max-width: 600px;
+        margin: 30px auto;
+        padding: 20px;
+    }
+    
+    .rvp-settings-container h2 {
+        font-weight: 600;
+        margin-bottom: 50px;
+    }
+    
+    .rvp-settings-container h3 {
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+    
+    @media screen and (min-width: 768px) {
+        #rvp-settings label {
+            display: inline-block;
+            width: 35%;
+        }
+        #rvp-settings .form-control {
+            display: inline-block;
+            width: 60%;
+        }
+        #rvp-settings .select-wrap {
+            display: inline-block;
+            width: 60%;
+        }
+        #rvp-settings .select-wrap .form-control {
+            width: 100%;
+        }
+    }
+    </style>
 </head>
-<body></body>
+<body>
+	<div class="rvp-settings-container normalized">
+		<h2 id="rvp-title">Recently Viewed Products</h2>
+		<h3 id="rvp-legend">Settings</h3>
+		<div>
+				<form id="rvp-settings" name="rvp-settings">
+						<div>
+								<label id="rvp-max-shown">Max products shown (&lt;&nbsp;6)</label>
+								<input class="form-control input-medium" name="maximum" type="text" value="5">
+						</div>
+						<div>
+								<label id="rvp-place">Place for Reacently Viewed</label>
+								<div class="select-wrap">
+										<select class="form-control input-medium" id="rvp-place-select">
+												<option value="above" selected>Above</option>
+												<option value="under">Under</option>
+										</select>
+								</div>
+						</div>
+						<button id="rvp-save" type="submit" class="btn btn-primary btn-medium">Save</button>
+				</form>
+		</div>
+</div>
+</body>
 </html>
